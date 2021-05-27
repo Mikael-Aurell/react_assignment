@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-//import axios from 'axios'
 class TableBody extends Component {
 
     render() {
@@ -8,11 +7,10 @@ class TableBody extends Component {
                 return (
                 <tr key={row.id}>
                     <td>{row.name}</td>
-                    <td>{" "}</td>
                     <td>
-                        <button className="btn btn-info">Details</button>
+                        <button className="btn btn-info" onClick={()=> props.detailsCategory(row.id)}>Details</button>
                         {" "}
-                        <button className="btn btn-danger" onClick={}>Delete</button>
+                        <button className="btn btn-danger" onClick={()=> props.removeCategory(row.id)}>Delete</button>
                     </td>
                 </tr>
             )
@@ -23,7 +21,11 @@ class TableBody extends Component {
             );
         }
        return (
-           <TableBody categories={this.props.categories} />
+           <TableBody
+               categories={this.props.categories}
+               removeCategory={this.props.removeCategory}
+               detailsCategory={this.props.detailsCategory}
+           />
        );
     }
 }

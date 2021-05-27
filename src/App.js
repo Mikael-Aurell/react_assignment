@@ -1,12 +1,14 @@
 import React, {Component} from "react";
 import './App.css';
+import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
 import MyTable from './components/MyTable';
-import axios from "axios";
+import Details from "./components/Details";
 
 class App extends Component {
     state = {
-        categories: []
+        categories: [], categoriesDetails: [],
+        showDetails: false, showMyTable: true
     }
 
     /*async componentDidMount() {
@@ -32,13 +34,53 @@ class App extends Component {
 
     }
 
+    removeCategory = Id => {
+        const {categories} = this.state;
+        this.setState(
+            {
+                categories: categories.filter(
+                    (category) => {return category.id !==Id}
+                )
+            }
+        );
+    }
+
+    detailsCategory = Id => {
+        const {categories} = this.state;
+        this.setState(
+            {
+                categoriesDetails: categories.filter(
+                    (category) => {return category.id === Id}
+                )
+            }
+        );
+        this.setState({showDetails: true});
+        this.setState({showMyTable: false});
+    }
 
     render() {
-        const {categories} = this.state;
+        const {categories, categoriesDetails, showDetails, showMyTable} = this.state;
 
         return (
             <div className="App">
-                <MyTable categories={categories} />
+                {!showDetails ?
+                    ( <MyTable
+                            categories={categories}
+                            removeCategory={this.removeCategory}
+                            detailsCategory={this.detailsCategory}
+                        />
+                ) : null }
+
+                {showDetails ?
+                    ( <div>
+                        <br />
+                        <header>Category Details</header>
+                        <Details categoriesDetails={categoriesDetails} />
+                        <button className="btn btn-primary" onClick={
+                            ()=> this.setState({showDetails: false})}
+                        >Close Details</button>
+                    </div> )
+                        : null }
             </div>
         );
     }

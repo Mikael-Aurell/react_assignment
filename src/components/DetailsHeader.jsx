@@ -1,14 +1,14 @@
 import React from 'react';
 
-    const TableHeader = () => {
+    const DetailsHeader = () => {
         return (
             <thead className="table-bordered">
                 <tr>
+                    <th>Id</th>
                     <th>Name</th>
-                    <th>Options</th>
                 </tr>
             </thead>
         );
     };
 
-export default TableHeader;
+export default DetailsHeader;

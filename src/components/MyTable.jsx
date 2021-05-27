@@ -4,12 +4,16 @@ import TableBody from "./TableBody";
 
 class MyTable extends Component {
     render() {
-        const {categories} = this.props;
+        const {categories, removeCategory, detailsCategory} = this.props;
         console.log(categories);
         return (
             <div>
                 <TableHeader />
-                <TableBody categories={categories} />
+                <TableBody
+                    categories={categories}
+                    removeCategory={removeCategory}
+                    detailsCategory={detailsCategory}
+                />
             </div>
         );
     }
