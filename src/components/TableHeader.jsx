@@ -5,6 +5,7 @@ import React from 'react';
             <thead className="table-bordered">
                 <tr>
                     <th className="m-4">Name</th>
+                    <th>{" "}</th>
                     <th className="m-4">Options</th>
                 </tr>
             </thead>
