@@ -10,6 +10,11 @@
   color: white;
 }
 
+.Navbar {
+  z-index: 1;
+  margin: auto;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
