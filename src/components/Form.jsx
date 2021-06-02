@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component} from 'react';
 import axios from 'axios';
 
 export default class Edit extends Component {
@@ -32,15 +32,14 @@ export default class Edit extends Component {
         const {handleChange, submitForm} = this;
 
         return (
-            <Fragment>
+            <div>
                 <h2>Create Category</h2>
                 <form className="from-group">
-                    <label for="">Name</label>
-                    <input type="text" name="name" id="name" value={name} onChange={handleChange} />
-                    <br />
-                    <input className="btn btn-primary" type="button" value="Submit" onClick={submitForm} />
+                    <label for="">Name</label>{" "}
+                    {" "}<input type="text" name="name" id="name" value={name} onChange={handleChange} />{" "}
+                    <span>{" "}<input className="btn btn-primary" type="button" value="Submit" onClick={submitForm} /></span>
                 </form>
-            </Fragment>
+            </div>
         );
     }
 }

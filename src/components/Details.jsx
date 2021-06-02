@@ -6,7 +6,7 @@ class Details extends Component {
     render() {
         const {categoriesDetails} = this.props;
         return (
-            <div>
+            <div className="container">
                 <DetailsHeader />
                 <DetailsBody
                     categoriesDetails={categoriesDetails}

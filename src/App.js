@@ -1,24 +1,23 @@
 import React, {Component} from "react";
 import './App.css';
 import axios from "axios";
+import {useSelector} from "react-redux"; //useSelector is a hook which take a slice of the store
 import 'bootstrap/dist/css/bootstrap.css';
 import MyTable from './components/MyTable';
 import Details from "./components/Details";
 import Form from './components/Form';
 import Navbar from "./components/Navbar";
+import Counter from "./components/Counter";
+
 
 class App extends Component {
+
+
+
     state = {
         categories: [], categoriesDetails: [],
         showDetails: false, showForm: false
     }
-
-    /*async componentDidMount() {
-        await axios.delete('https://mj-tg-productmanagement.herokuapp.com/api/category/')
-            .then(response => { //Because axios is promised based we use then
-                console.log(response.data);
-                //this.setState({categories: response.data});
-            });*/
 
     async componentDidMount() {
         await axios.get('https://mj-tg-productmanagement.herokuapp.com/api/category/')
@@ -29,23 +28,29 @@ class App extends Component {
 
     }
 
-    removeCategory = Id => {
+    removeCategory = id => {
+
+        console.log(id);
+
+        axios.delete('https://mj-tg-productmanagement.herokuapp.com/api/category/'+id)
+             .then(response => {console.log(response.data);});
+
         const {categories} = this.state;
         this.setState(
             {
                 categories: categories.filter(
-                    (category) => {return category.id !==Id}
+                    (category) => {return category.id !==id}
                 )
             }
         );
     }
 
-    detailsCategory = Id => {
+    detailsCategory = id => {
         const {categories} = this.state;
         this.setState(
             {
                 categoriesDetails: categories.filter(
-                    (category) => {return category.id === Id}
+                    (category) => {return category.id === id}
                 )
             }
         );
@@ -63,38 +68,40 @@ class App extends Component {
 
         return (
 
-            <div className="App">
-                <Navbar/>
-                <br /><br /><br /><br /><br /><br />
-                <button className="btn btn-primary" onClick={()=>this.setState({showForm: true})}> Create Category</button>
+            <div className="container">
+                <Navbar />
+                <Counter />
+                <br />
+                <div>
+                    <button className="btn btn-success" onClick={()=>this.setState({showForm: true})}> Create Category</button>
+                </div>
+                <br />
                 {showForm ?
-                    ( <div>
+                    (<div>
                         <Form
                             categories={categories}
                             handleSubmitForm={this.handleSubmitForm} />
-                        <span>
-                            <button className="btn btn-primary" onClick={() => this.setState({showForm: false})}>
-                            Close </button>
-                        </span>
-                      </div> )
+                    </div> )
                     : null }
                 <br />
 
                 { !showDetails ?
-                    ( <MyTable
+                    (<div>
+                        <MyTable
                             categories={categories}
                             removeCategory={this.removeCategory}
-                            detailsCategory={this.detailsCategory} />
-                ) : null }
+                            detailsCategory={this.detailsCategory}
+                        />
+                    </div> )
+                    : null }
 
                 {showDetails ?
-                    ( <div>
+                    (<div>
                         <br />
                         <header>Category Details</header>
                         <Details categoriesDetails={categoriesDetails} />
-                        <button className="btn btn-primary" onClick={
-                            ()=> this.setState({showDetails: false})}
-                        >Close Details</button>
+                        <br />
+                        <button className="btn btn-primary" onClick={()=> this.setState({showDetails: false})}>Close Details</button>
                     </div> )
                     : null }
             </div>
